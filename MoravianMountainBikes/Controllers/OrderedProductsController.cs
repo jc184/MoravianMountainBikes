@@ -21,7 +21,7 @@ namespace MoravianMountainBikes.Controllers
         // GET: OrderedProducts
         public async Task<IActionResult> Index()
         {
-            var moravianContext = _context.OrderedProduct.Include(o => o.CustomerOrder);
+            var moravianContext = _context.OrderedProduct.Include(o => o.CustomerOrder).Include(o => o.ProductCodeNavigation);
             return View(await moravianContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace MoravianMountainBikes.Controllers
 
             var orderedProduct = await _context.OrderedProduct
                 .Include(o => o.CustomerOrder)
+                .Include(o => o.ProductCodeNavigation)
                 .FirstOrDefaultAsync(m => m.CustomerOrderId == id);
             if (orderedProduct == null)
             {
@@ -48,6 +49,7 @@ namespace MoravianMountainBikes.Controllers
         public IActionResult Create()
         {
             ViewData["CustomerOrderId"] = new SelectList(_context.CustomerOrder, "Id", "Id");
+            ViewData["ProductCode"] = new SelectList(_context.Product, "Code", "Name");
             return View();
         }
 
@@ -65,6 +67,7 @@ namespace MoravianMountainBikes.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerOrderId"] = new SelectList(_context.CustomerOrder, "Id", "Id", orderedProduct.CustomerOrderId);
+            ViewData["ProductCode"] = new SelectList(_context.Product, "Code", "Name", orderedProduct.ProductCode);
             return View(orderedProduct);
         }
 
@@ -82,6 +85,7 @@ namespace MoravianMountainBikes.Controllers
                 return NotFound();
             }
             ViewData["CustomerOrderId"] = new SelectList(_context.CustomerOrder, "Id", "Id", orderedProduct.CustomerOrderId);
+            ViewData["ProductCode"] = new SelectList(_context.Product, "Code", "Name", orderedProduct.ProductCode);
             return View(orderedProduct);
         }
 
@@ -118,6 +122,7 @@ namespace MoravianMountainBikes.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerOrderId"] = new SelectList(_context.CustomerOrder, "Id", "Id", orderedProduct.CustomerOrderId);
+            ViewData["ProductCode"] = new SelectList(_context.Product, "Code", "Name", orderedProduct.ProductCode);
             return View(orderedProduct);
         }
 
@@ -131,6 +136,7 @@ namespace MoravianMountainBikes.Controllers
 
             var orderedProduct = await _context.OrderedProduct
                 .Include(o => o.CustomerOrder)
+                .Include(o => o.ProductCodeNavigation)
                 .FirstOrDefaultAsync(m => m.CustomerOrderId == id);
             if (orderedProduct == null)
             {

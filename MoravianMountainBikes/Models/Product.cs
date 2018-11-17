@@ -5,6 +5,11 @@ namespace MoravianMountainBikes.Models
 {
     public partial class Product
     {
+        public Product()
+        {
+            OrderedProduct = new HashSet<OrderedProduct>();
+        }
+
         public long Code { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
@@ -12,5 +17,6 @@ namespace MoravianMountainBikes.Models
         public long CategoryId { get; set; }
 
         public Category Category { get; set; }
+        public ICollection<OrderedProduct> OrderedProduct { get; set; }
     }
 }

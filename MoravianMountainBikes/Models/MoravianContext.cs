@@ -185,6 +185,12 @@ namespace MoravianMountainBikes.Models
                     .WithMany(p => p.OrderedProduct)
                     .HasForeignKey(d => d.CustomerOrderId)
                     .HasConstraintName("ordered_product$fk_ordered_product_customer_order");
+
+                entity.HasOne(d => d.ProductCodeNavigation)
+                    .WithMany(p => p.OrderedProduct)
+                    .HasForeignKey(d => d.ProductCode)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ordered_product_product");
             });
 
             modelBuilder.Entity<Product>(entity =>

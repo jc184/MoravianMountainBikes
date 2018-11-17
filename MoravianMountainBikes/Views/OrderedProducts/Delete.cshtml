@@ -23,6 +23,12 @@
         <dd>
             @Html.DisplayFor(model => model.CustomerOrder.Id)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCodeNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductCodeNavigation.Name)
+        </dd>
     </dl>
     
     <form asp-action="Delete">

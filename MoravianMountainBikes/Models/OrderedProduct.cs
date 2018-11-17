@@ -10,5 +10,6 @@ namespace MoravianMountainBikes.Models
         public int Quantity { get; set; }
 
         public CustomerOrder CustomerOrder { get; set; }
+        public Product ProductCodeNavigation { get; set; }
     }
 }
